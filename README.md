@@ -1,3 +1,3 @@
 # Data-driven defintion of ocean provinces
 
-See documentation [here](https://rawgit.com/muellsen/OceanProvinces/master/html/processOceanData.html)
+See documentation [here](https://cdn.jsdelivr.net/gh/muellsen/OceanProvinces@master/html/processOceanProvinces.html)
