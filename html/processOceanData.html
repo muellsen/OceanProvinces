@@ -1,0 +1,475 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Ocean province dataset retrieval and visualization</title><meta name="generator" content="MATLAB 9.7"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2020-04-03"><meta name="DC.source" content="processOceanData.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1><b>Ocean province dataset retrieval and visualization</b></h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Loading local file (Deprecated)</a></li><li><a href="#2">Bror's data file version alpha Dec 2019</a></li><li><a href="#3">Loading file from Bror's GitHub repository (Monthly climatology, four degree resolution)</a></li><li><a href="#4">Load table from the web into oceanData</a></li><li><a href="#5">Show all table properties (column names)</a></li><li><a href="#6">Show Chlorophyll data per month in a world bubble chart</a></li><li><a href="#7">Show all data per month in a stacked plot</a></li><li><a href="#8">Histogram for all features data</a></li><li><a href="#9">Correlation patterns among features</a></li><li><a href="#10">Global feature normalization</a></li><li><a href="#11">Computing distances</a></li><li><a href="#12">Comparing distances via scatter plots</a></li><li><a href="#13">Hierarchical clustering</a></li><li><a href="#14">Ward's method with Euclidean distance</a></li><li><a href="#15">Visualization of clusters (Euclidean) across months</a></li><li><a href="#16">Ward's method with cosine distance</a></li><li><a href="#17">Visualization of clusters (cosine) across months</a></li><li><a href="#18">Ward's method with Mahalanobis distance</a></li><li><a href="#19">Visualization of clusters (Mahalanbis) across months</a></li></ul></div><h2 id="1">Loading local file (Deprecated)</h2><h2 id="2">Bror's data file version alpha Dec 2019</h2><p>oceanFile = 'gridded_geospatial_montly_clim_360_720.nc';</p><h2 id="3">Loading file from Bror's GitHub repository (Monthly climatology, four degree resolution)</h2><pre class="codeinput">oceanURlFile = <span class="string">'https://rsg.pml.ac.uk/shared_files/brj/CBIOMES_ecoregions/ver_0_2/tabulated_geospatial_montly_clim_045_090_ver_0_2.csv'</span>;
+</pre><h2 id="4">Load table from the web into oceanData</h2><pre class="codeinput">oceanData = webread(oceanURlFile);
+</pre><h2 id="5">Show all table properties (column names)</h2><pre class="codeinput">oceanData.Properties.VariableNames
+</pre><pre class="codeoutput">
+ans =
+
+  1&times;19 cell array
+
+  Columns 1 through 6
+
+    {'Var1'}    {'month'}    {'lat'}    {'lon'}    {'SST'}    {'Chl'}
+
+  Columns 7 through 11
+
+    {'PAR'}    {'Kd490'}    {'euphotic_depth'}    {'MLD'}    {'wind'}
+
+  Columns 12 through 16
+
+    {'EKE'}    {'bathymetry'}    {'Rrs412'}    {'Rrs443'}    {'Rrs490'}
+
+  Columns 17 through 19
+
+    {'Rrs510'}    {'Rrs555'}    {'Rrs670'}
+
+</pre><h2 id="6">Show Chlorophyll data per month in a world bubble chart</h2><pre class="codeinput">nMonths = 12;
+<span class="keyword">for</span> i = 1:nMonths
+
+    <span class="comment">% Find indices corresponding to month</span>
+    currMonthInds = find(oceanData.month==i);
+
+    figure(i);
+    geobubble(oceanData.lat(currMonthInds),oceanData.lon(currMonthInds),oceanData.Chl(currMonthInds));
+    title([<span class="string">'Chlorophyll month '</span>,num2str(i)]);
+    drawnow;
+
+
+<span class="keyword">end</span>
+</pre><img vspace="5" hspace="5" src="processOceanData_01.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_02.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_03.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_04.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_05.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_06.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_07.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_08.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_09.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_10.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_11.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_12.png" alt=""> <h2 id="7">Show all data per month in a stacked plot</h2><pre class="codeinput">figure;
+stackedplot(oceanData);
+set(gca,<span class="string">'FontSize'</span>,14);
+</pre><img vspace="5" hspace="5" src="processOceanData_13.png" alt=""> <h2 id="8">Histogram for all features data</h2><pre class="codeinput"><span class="comment">% Feature indices</span>
+featureInds = 5:19;
+nFeatures = length(featureInds);
+
+oceanX = table2array(oceanData(:,featureInds));
+featureLabels = oceanData.Properties.VariableNames(featureInds);
+
+<span class="keyword">for</span> i=1:nFeatures
+    currLabel = featureLabels{i};
+    currData = oceanX(:,i);
+    figure;
+    histogram(currData,<span class="string">'Normalization'</span>,<span class="string">'pdf'</span>);
+    title([<span class="string">'Unnormalized feature: '</span>,currLabel]);
+    grid <span class="string">on</span>;
+    drawnow;
+<span class="keyword">end</span>
+</pre><img vspace="5" hspace="5" src="processOceanData_14.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_15.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_16.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_17.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_18.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_19.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_20.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_21.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_22.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_23.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_24.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_25.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_26.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_27.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_28.png" alt=""> <h2 id="9">Correlation patterns among features</h2><pre class="codeinput"><span class="comment">% Correlation of unnormalized features</span>
+corrX = corr(oceanX);
+
+figure;
+imagesc(corrX)
+set(gca,<span class="string">'XTick'</span>,1:nFeatures,<span class="string">'XTickLabels'</span>,featureLabels);
+xtickangle(90);
+set(gca,<span class="string">'YTick'</span>,1:nFeatures,<span class="string">'YTickLabels'</span>,featureLabels);
+set(gca,<span class="string">'FontSize'</span>,15);
+title(<span class="string">'Correlation among unnormalized features'</span>);
+colorbar
+</pre><img vspace="5" hspace="5" src="processOceanData_29.png" alt=""> <h2 id="10">Global feature normalization</h2><pre class="codeinput"><span class="comment">% z-scoring</span>
+oceanZ = zscore(oceanX);
+
+<span class="comment">% Plot histograms</span>
+<span class="keyword">for</span> i=1:nFeatures
+    currLabel = featureLabels{i};
+    currData = oceanZ(:,i);
+    figure;
+    histogram(currData,<span class="string">'Normalization'</span>,<span class="string">'pdf'</span>);
+    title([<span class="string">'Normalized feature: '</span>,currLabel]);
+    grid <span class="string">on</span>;
+    drawnow;
+<span class="keyword">end</span>
+
+<span class="comment">% Correlation of normalized features</span>
+corrZ = corr(oceanZ);
+
+figure;
+imagesc(corrZ);
+set(gca,<span class="string">'XTick'</span>,1:15,<span class="string">'XTickLabels'</span>,featureLabels);
+xtickangle(90);
+set(gca,<span class="string">'YTick'</span>,1:15,<span class="string">'YTickLabels'</span>,featureLabels);
+set(gca,<span class="string">'FontSize'</span>,15);
+title(<span class="string">'Correlation among normalized features'</span>);
+colorbar;
+</pre><img vspace="5" hspace="5" src="processOceanData_30.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_31.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_32.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_33.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_34.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_35.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_36.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_37.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_38.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_39.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_40.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_41.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_42.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_43.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_44.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_45.png" alt=""> <h2 id="11">Computing distances</h2><pre class="codeinput">D_euclid = pdist(oceanZ,<span class="string">'euclidean'</span>);
+D_cosine = pdist(oceanZ,<span class="string">'cosine'</span>);
+D_l1 = pdist(oceanZ,<span class="string">'cityblock'</span>);
+D_maha = pdist(oceanZ,<span class="string">'mahalanobis'</span>);
+</pre><h2 id="12">Comparing distances via scatter plots</h2><pre class="codeinput">nDists = length(D_euclid);
+randInds = randi(nDists,[1 1e6]);
+
+<span class="comment">% Comparing Euclidean vs. Cosine distances</span>
+figure;
+plot(D_euclid(randInds),D_cosine(randInds),<span class="string">'.'</span>);
+set(gca,<span class="string">'FontSize'</span>,15);
+title(<span class="string">'Scatter plot of distances'</span>);
+xlabel(<span class="string">'Euclidean distance'</span>);
+ylabel(<span class="string">'Cosine distance'</span>);
+
+<span class="comment">% Comparing Euclidean vs. Mahalanobis distances</span>
+figure;
+plot(D_euclid(randInds),D_maha(randInds),<span class="string">'.'</span>);
+set(gca,<span class="string">'FontSize'</span>,15);
+title(<span class="string">'Scatter plot of distances'</span>);
+xlabel(<span class="string">'Euclidean distance'</span>);
+ylabel(<span class="string">'Mahalanobis distance'</span>);
+</pre><img vspace="5" hspace="5" src="processOceanData_46.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_47.png" alt=""> <h2 id="13">Hierarchical clustering</h2><h2 id="14">Ward's method with Euclidean distance</h2><pre class="codeinput">linkZ_euclid = linkage(oceanZ,<span class="string">'ward'</span>,<span class="string">'euclidean'</span>);
+
+figure;
+dendrogram(linkZ_euclid);
+
+T_euclid = cluster(linkZ_euclid,<span class="string">'maxclust'</span>,7);
+</pre><img vspace="5" hspace="5" src="processOceanData_48.png" alt=""> <h2 id="15">Visualization of clusters (Euclidean) across months</h2><pre class="codeinput">nMonths = 12;
+<span class="keyword">for</span> i = 1:nMonths
+
+    <span class="comment">% Find indices corresponding to month</span>
+    currMonthInds = find(oceanData.month==i);
+
+    nData = length(currMonthInds);
+
+    figure(i);
+    geobubble(oceanData.lat(currMonthInds),oceanData.lon(currMonthInds),ones(nData,1),categorical(T_euclid(currMonthInds)));
+    title([<span class="string">'Month '</span>,num2str(i)]);
+<span class="keyword">end</span>
+</pre><img vspace="5" hspace="5" src="processOceanData_49.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_50.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_51.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_52.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_53.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_54.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_55.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_56.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_57.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_58.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_59.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_60.png" alt=""> <h2 id="16">Ward's method with cosine distance</h2><pre class="codeinput">linkZ_cosine = linkage(oceanZ,<span class="string">'ward'</span>,<span class="string">'cosine'</span>);
+
+figure;
+dendrogram(linkZ_cosine)
+
+T_cosine = cluster(linkZ_cosine,<span class="string">'maxclust'</span>,7);
+</pre><pre class="codeoutput">Warning: ward's linkage specified with non-Euclidean distance metric. 
+</pre><img vspace="5" hspace="5" src="processOceanData_61.png" alt=""> <h2 id="17">Visualization of clusters (cosine) across months</h2><pre class="codeinput">nMonths = 12;
+<span class="keyword">for</span> i = 1:nMonths
+
+    <span class="comment">% Find indices corresponding to month</span>
+    currMonthInds = find(oceanData.month==i);
+
+    nData = length(currMonthInds);
+
+    figure(i);
+    geobubble(oceanData.lat(currMonthInds),oceanData.lon(currMonthInds),ones(nData,1),categorical(T_cosine(currMonthInds)));
+    title([<span class="string">'Month '</span>,num2str(i)]);
+
+<span class="keyword">end</span>
+</pre><img vspace="5" hspace="5" src="processOceanData_62.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_63.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_64.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_65.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_66.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_67.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_68.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_69.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_70.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_71.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_72.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_73.png" alt=""> <h2 id="18">Ward's method with Mahalanobis distance</h2><pre class="codeinput">linkZ_maha = linkage(oceanZ,<span class="string">'ward'</span>,<span class="string">'mahalanobis'</span>);
+
+figure;
+dendrogram(linkZ_maha)
+
+T_maha = cluster(linkZ_maha,<span class="string">'maxclust'</span>,7);
+</pre><pre class="codeoutput">Warning: ward's linkage specified with non-Euclidean distance metric. 
+</pre><img vspace="5" hspace="5" src="processOceanData_74.png" alt=""> <h2 id="19">Visualization of clusters (Mahalanbis) across months</h2><pre class="codeinput">nMonths = 12;
+<span class="keyword">for</span> i = 1:nMonths
+
+    <span class="comment">% Find indices corresponding to month</span>
+    currMonthInds = find(oceanData.month==i);
+
+    nData = length(currMonthInds);
+
+    figure(i);
+    geobubble(oceanData.lat(currMonthInds),oceanData.lon(currMonthInds),ones(nData,1),categorical(T_maha(currMonthInds)));
+    title([<span class="string">'Month '</span>,num2str(i)]);
+
+<span class="keyword">end</span>
+</pre><img vspace="5" hspace="5" src="processOceanData_75.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_76.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_77.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_78.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_79.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_80.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_81.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_82.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_83.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_84.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_85.png" alt=""> <img vspace="5" hspace="5" src="processOceanData_86.png" alt=""> <p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2019b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% *Ocean province dataset retrieval and visualization* 
+
+%% Loading local file (Deprecated)
+%% Bror's data file version alpha Dec 2019  
+% oceanFile = 'gridded_geospatial_montly_clim_360_720.nc';
+
+%% Loading file from Bror's GitHub repository (Monthly climatology, four degree resolution) 
+oceanURlFile = 'https://rsg.pml.ac.uk/shared_files/brj/CBIOMES_ecoregions/ver_0_2/tabulated_geospatial_montly_clim_045_090_ver_0_2.csv';
+
+%% Load table from the web into oceanData 
+oceanData = webread(oceanURlFile);
+
+%% Show all table properties (column names)
+oceanData.Properties.VariableNames
+
+%% Show Chlorophyll data per month in a world bubble chart
+nMonths = 12;
+for i = 1:nMonths
+        
+    % Find indices corresponding to month
+    currMonthInds = find(oceanData.month==i);
+
+    figure(i);
+    geobubble(oceanData.lat(currMonthInds),oceanData.lon(currMonthInds),oceanData.Chl(currMonthInds));
+    title(['Chlorophyll month ',num2str(i)]);
+    drawnow;
+    
+    
+end
+
+%% Show all data per month in a stacked plot
+figure;
+stackedplot(oceanData);
+set(gca,'FontSize',14);
+
+
+%% Histogram for all features data
+
+% Feature indices
+featureInds = 5:19;
+nFeatures = length(featureInds);
+
+oceanX = table2array(oceanData(:,featureInds));
+featureLabels = oceanData.Properties.VariableNames(featureInds);
+
+for i=1:nFeatures
+    currLabel = featureLabels{i};
+    currData = oceanX(:,i);
+    figure;
+    histogram(currData,'Normalization','pdf');
+    title(['Unnormalized feature: ',currLabel]);
+    grid on;
+    drawnow;
+end
+
+%% Correlation patterns among features
+
+% Correlation of unnormalized features
+corrX = corr(oceanX);
+
+figure;
+imagesc(corrX)
+set(gca,'XTick',1:nFeatures,'XTickLabels',featureLabels);
+xtickangle(90);
+set(gca,'YTick',1:nFeatures,'YTickLabels',featureLabels);
+set(gca,'FontSize',15);
+title('Correlation among unnormalized features');
+colorbar
+
+%% Global feature normalization
+
+% z-scoring
+oceanZ = zscore(oceanX);
+
+% Plot histograms
+for i=1:nFeatures
+    currLabel = featureLabels{i};
+    currData = oceanZ(:,i);
+    figure;
+    histogram(currData,'Normalization','pdf');
+    title(['Normalized feature: ',currLabel]);
+    grid on;
+    drawnow;
+end
+
+% Correlation of normalized features
+corrZ = corr(oceanZ);
+
+figure;
+imagesc(corrZ);
+set(gca,'XTick',1:15,'XTickLabels',featureLabels);
+xtickangle(90);
+set(gca,'YTick',1:15,'YTickLabels',featureLabels);
+set(gca,'FontSize',15);
+title('Correlation among normalized features');
+colorbar;
+
+%% Computing distances
+
+D_euclid = pdist(oceanZ,'euclidean');
+D_cosine = pdist(oceanZ,'cosine');
+D_l1 = pdist(oceanZ,'cityblock');
+D_maha = pdist(oceanZ,'mahalanobis');
+
+
+%% Comparing distances via scatter plots
+
+nDists = length(D_euclid);
+randInds = randi(nDists,[1 1e6]);
+
+% Comparing Euclidean vs. Cosine distances 
+figure;
+plot(D_euclid(randInds),D_cosine(randInds),'.');
+set(gca,'FontSize',15);
+title('Scatter plot of distances');
+xlabel('Euclidean distance');
+ylabel('Cosine distance');
+
+% Comparing Euclidean vs. Mahalanobis distances 
+figure;
+plot(D_euclid(randInds),D_maha(randInds),'.');
+set(gca,'FontSize',15);
+title('Scatter plot of distances');
+xlabel('Euclidean distance');
+ylabel('Mahalanobis distance');
+
+
+%% Hierarchical clustering
+
+%% Ward's method with Euclidean distance
+linkZ_euclid = linkage(oceanZ,'ward','euclidean');
+
+figure;
+dendrogram(linkZ_euclid);
+
+T_euclid = cluster(linkZ_euclid,'maxclust',7);
+
+%% Visualization of clusters (Euclidean) across months
+
+nMonths = 12;
+for i = 1:nMonths
+        
+    % Find indices corresponding to month
+    currMonthInds = find(oceanData.month==i);
+    
+    nData = length(currMonthInds);
+    
+    figure(i);
+    geobubble(oceanData.lat(currMonthInds),oceanData.lon(currMonthInds),ones(nData,1),categorical(T_euclid(currMonthInds)));
+    title(['Month ',num2str(i)]);
+end
+
+%% Ward's method with cosine distance
+linkZ_cosine = linkage(oceanZ,'ward','cosine');
+
+figure;
+dendrogram(linkZ_cosine)
+
+T_cosine = cluster(linkZ_cosine,'maxclust',7);
+
+%% Visualization of clusters (cosine) across months
+
+nMonths = 12;
+for i = 1:nMonths
+        
+    % Find indices corresponding to month
+    currMonthInds = find(oceanData.month==i);
+    
+    nData = length(currMonthInds);
+    
+    figure(i);
+    geobubble(oceanData.lat(currMonthInds),oceanData.lon(currMonthInds),ones(nData,1),categorical(T_cosine(currMonthInds)));
+    title(['Month ',num2str(i)]);
+    
+end
+
+%% Ward's method with Mahalanobis distance
+linkZ_maha = linkage(oceanZ,'ward','mahalanobis');
+
+figure;
+dendrogram(linkZ_maha)
+
+T_maha = cluster(linkZ_maha,'maxclust',7);
+
+%% Visualization of clusters (Mahalanbis) across months
+
+nMonths = 12;
+for i = 1:nMonths
+        
+    % Find indices corresponding to month
+    currMonthInds = find(oceanData.month==i);
+    
+    nData = length(currMonthInds);
+    
+    figure(i);
+    geobubble(oceanData.lat(currMonthInds),oceanData.lon(currMonthInds),ones(nData,1),categorical(T_maha(currMonthInds)));
+    title(['Month ',num2str(i)]);
+    
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+##### SOURCE END #####
+--></body></html>
