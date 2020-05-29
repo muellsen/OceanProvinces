@@ -1,4 +1,4 @@
-<img src="https://i.imgur.com/U2Raz60.png" alt="TREX" height="150" align="right"/>
+<img src="https://i.imgur.com/39RTmsl.png" alt="cbiomes" height="150" align="right"/>
 
 ## Data-driven Ocean Provinces
 
@@ -26,5 +26,7 @@ The image represents the clusteing of the ocean into seven regions for the month
 <p align="center">
   <img width="560" height="420" src="https://github.com/muellsen/OceanProvinces/blob/master/html/processOceanData_70.png">
 </p>
+
+## MATLAB notebook 
 
 An initial MATLAB notebook using hierarchical clustering is available [here:](http://htmlpreview.github.io/?https://github.com/muellsen/OceanProvinces/blob/master/html/processOceanData.html)
