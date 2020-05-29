@@ -1,4 +1,4 @@
-<img src="https://i.imgur.com/Ei8KgYG.png" alt="TREX" height="150" align="right"/>
+<img src="https://i.imgur.com/U2Raz60.png" alt="TREX" height="150" align="right"/>
 
 ## Data-driven Ocean Provinces
 
