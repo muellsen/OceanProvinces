@@ -16,9 +16,6 @@ Below is an example when using Ward's method with cosine similarity
 ```Matlab
 linkZ_cosine = linkage(oceanZ,'ward','cosine');
 
-figure;
-dendrogram(linkZ_cosine)
-
 T_cosine = cluster(linkZ_cosine,'maxclust',7);
 ```
 The image represents the clusteing of the ocean into seven regions for the month of September.
