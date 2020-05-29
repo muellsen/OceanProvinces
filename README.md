@@ -1,5 +1,6 @@
 <img src="https://i.imgur.com/Ei8KgYG.png" alt="TREX" height="150" align="right"/>
-# Data-driven Ocean Provinces
+
+## Data-driven Ocean Provinces
 
 This GitHub repository is part of a project that aims to create data-driven partitions of the ocean from globally observed
 data. 
