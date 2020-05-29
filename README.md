@@ -9,4 +9,6 @@ The dataset consists of monthly climologies resampled to the same 1/2° grid, bo
 
 The effort is part of the Simons Collaboration on Computational Biogeochemical Modeling of Marine Ecosystems [Simons CBIOMES](https://www.cbiomes.org), which seeks to develop and apply quantitative models of the structure and function of marine microbial communities at seasonal and basin scales.
 
+![Ocean clustering in September](https://github.com/muellsen/OceanProvinces/blob/master/html/processOceanData_70.png)
+
 See an intial workflow [here](http://htmlpreview.github.io/?https://github.com/muellsen/OceanProvinces/blob/master/html/processOceanData.html)
