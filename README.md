@@ -1,4 +1,4 @@
-<img src="https://i.imgur.com/39RTmsl.png" alt="cbiomes" height="150" align="right"/>
+<img src="https://i.imgur.com/39RTmsl.png" alt="cbiomes" height="120" align="right"/>
 
 ## Data-driven Ocean Provinces
 
