@@ -22,7 +22,8 @@ and function of marine microbial communities at seasonal and basin scales.
 - Wind Speed (wind), Eddy Kinetik Energy (EKE), Bathymetry
 
 ## Basic example
-Below is an example in MATLAB how to download the data and using Ward's method with cosine similarity 
+Below is an example in MATLAB how to download the data and using hierarchical clustering with 
+Ward's method and cosine similarity. 
 
 ```Matlab
 oceanURlFile = 'https://rsg.pml.ac.uk/shared_files/brj/CBIOMES_ecoregions/ver_0_2/tabulated_geospatial_montly_clim_045_090_ver_0_2.csv';
