@@ -11,11 +11,28 @@ The dataset consists of monthly climatologies resampled to the same 1/2° grid, 
 
 The effort is part of the Simons Collaboration on Computational Biogeochemical Modeling of Marine Ecosystems [Simons CBIOMES](https://www.cbiomes.org), which seeks to develop and apply quantitative models of the structure and function of marine microbial communities at seasonal and basin scales.
 
-Below is an example when using Ward's method with cosine similarity 
+Below is an example how to download the data and using Ward's method with cosine similarity 
 
 ```Matlab
+oceanURlFile = 'https://rsg.pml.ac.uk/shared_files/brj/CBIOMES_ecoregions/ver_0_2/tabulated_geospatial_montly_clim_045_090_ver_0_2.csv';
+
+%% Load table from the main GitHub into oceanData 
+oceanData = webread(oceanURlFile);
+
+% Feature indices (first four indices are index, month, lat, lon)
+featureInds = 5:19;
+nFeatures = length(featureInds);
+
+% Extract all features from the data file
+oceanX = table2array(oceanData(:,featureInds));
+
+% z-scoring
+oceanZ = zscore(oceanX);
+
+% Hierarchical clustering 
 linkZ_cosine = linkage(oceanZ,'ward','cosine');
 
+% Group into the top-7 global yearly clusters
 T_cosine = cluster(linkZ_cosine,'maxclust',7);
 ```
 The image represents the clusteing of the ocean into seven regions for the month of September.
