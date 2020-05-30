@@ -54,4 +54,4 @@ The image represents the clustering of the ocean into seven regions for the mont
 
 ## MATLAB notebook 
 
-An MATLAB notebook using hierarchical clustering with several distance measures is available [here:](http://htmlpreview.github.io/?https://github.com/muellsen/OceanProvinces/blob/master/html/processOceanData.html)
+An MATLAB notebook using hierarchical clustering with several distance measures is available [here](http://htmlpreview.github.io/?https://github.com/muellsen/OceanProvinces/blob/master/html/processOceanData.html).
