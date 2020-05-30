@@ -1,6 +1,6 @@
 <img src="https://i.imgur.com/39RTmsl.png" alt="cbiomes" height="120" align="right"/>
 
-## Data-driven Ocean Provinces
+## Data-driven Ocean Province Inference
 
 This GitHub repository is part of a collaborative project that aims to create data-driven partitions 
 of the ocean from globally observed data. 
