@@ -8,7 +8,7 @@ of the ocean from globally observed data.
 All data are available on the main GitHub repository [https://github.com/brorfred/ocean_clustering](https://github.com/brorfred/ocean_clustering).
 
 The dataset consists of 15 monthly climatologies resampled to the same 1/2° grid, both gridded in netcdf format and 
-tabulated as hdf5 and csv files. The tabulated data are also provided subsampled by including every 2nd, 4th or 8th datapoint. These files are much smaller to download and work with.
+tabulated as hdf5 and csv files. The tabulated data are also provided subsampled by including every 2nd, 4th or 8th datapoint.
 
 The effort is part of the Simons Collaboration on Computational Biogeochemical Modeling of Marine Ecosystems 
 [Simons CBIOMES](https://www.cbiomes.org), which seeks to develop and apply quantitative models of the structure 
