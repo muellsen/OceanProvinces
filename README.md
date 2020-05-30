@@ -14,7 +14,7 @@ The effort is part of the Simons Collaboration on Computational Biogeochemical M
 [Simons CBIOMES](https://www.cbiomes.org), which seeks to develop and apply quantitative models of the structure 
 and function of marine microbial communities at seasonal and basin scales.
 
-## List of 15 measurements included in the files
+## List of 15 measurements available in the data files
 
 - Chlorophyll (Chl), PAR, Kd490, Euphotic Depth
 - remotely sensed reflectances (Rrs412, Rrs443, Rrs490, Rrs510, Rrs555, Rrs670)
