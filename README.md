@@ -2,21 +2,24 @@
 
 ## Data-driven Ocean Provinces
 
-This GitHub repository is part of a project that aims to create data-driven partitions of the ocean from globally observed
-data. 
+This GitHub repository is part of a collaborative project that aims to create data-driven partitions 
+of the ocean from globally observed data. 
 
-All data are available on [https://github.com/brorfred/ocean_clustering](https://github.com/brorfred/ocean_clustering)
+All data are available on the main GitHub repository [https://github.com/brorfred/ocean_clustering](https://github.com/brorfred/ocean_clustering).
 
-The dataset consists of monthly climatologies resampled to the same 1/2° grid, both gridded in netcdf format and tabulated as hdf5 and csv files. The tabulated data are also provided subsampled by including every 2nd, 4th or 8th datapoint. These files are much smaller to download and work with.
+The dataset consists of monthly climatologies resampled to the same 1/2° grid, both gridded in netcdf format and 
+tabulated as hdf5 and csv files. The tabulated data are also provided subsampled by including every 2nd, 4th or 8th datapoint. These files are much smaller to download and work with.
 
-The effort is part of the Simons Collaboration on Computational Biogeochemical Modeling of Marine Ecosystems [Simons CBIOMES](https://www.cbiomes.org), which seeks to develop and apply quantitative models of the structure and function of marine microbial communities at seasonal and basin scales.
+The effort is part of the Simons Collaboration on Computational Biogeochemical Modeling of Marine Ecosystems 
+[Simons CBIOMES](https://www.cbiomes.org), which seeks to develop and apply quantitative models of the structure 
+and function of marine microbial communities at seasonal and basin scales.
 
 Below is an example how to download the data and using Ward's method with cosine similarity 
 
 ```Matlab
 oceanURlFile = 'https://rsg.pml.ac.uk/shared_files/brj/CBIOMES_ecoregions/ver_0_2/tabulated_geospatial_montly_clim_045_090_ver_0_2.csv';
 
-%% Load table from the main GitHub into oceanData 
+% Load table from the main GitHub into oceanData 
 oceanData = webread(oceanURlFile);
 
 % Feature indices (first four indices are index, month, lat, lon)
@@ -35,7 +38,7 @@ linkZ_cosine = linkage(oceanZ,'ward','cosine');
 % Group into the top-7 global yearly clusters
 T_cosine = cluster(linkZ_cosine,'maxclust',7);
 ```
-The image represents the clusteing of the ocean into seven regions for the month of September.
+The image represents the clustering of the ocean into seven regions for the month of September.
 
 <p align="center">
   <img width="560" height="420" src="https://github.com/muellsen/OceanProvinces/blob/master/html/processOceanData_70.png">
