@@ -4,14 +4,17 @@
 %% Bror's data file version alpha Dec 2019  
 % oceanFile = 'data/gridded_geospatial_montly_clim_360_720.nc';
 
-%% Loading file from Bror's GitHub repository (Monthly climatology, four degree resolution) 
-%% oceanURlFile = 'https://rsg.pml.ac.uk/shared_files/brj/CBIOMES_ecoregions/ver_0_2_5/tabulated_geospatial_montly_clim_045_090_ver_0_2_5.csv';
+%% Loading file from web (Deprecated) 
+% oceanURlFile = 'https://rsg.pml.ac.uk/shared_files/brj/CBIOMES_ecoregions/ver_0_2/tabulated_geospatial_montly_clim_045_090_ver_0_2.csv';
 
-%% Note that the current file here is already slightly deprecated 
-oceanURlFile = 'https://rsg.pml.ac.uk/shared_files/brj/CBIOMES_ecoregions/ver_0_2/tabulated_geospatial_montly_clim_045_090_ver_0_2.csv';
+%% Loading file from Bror's up-to-date GitHub repository (Monthly climatology, four degree resolution) 
+oceanURlFile = 'https://rsg.pml.ac.uk/shared_files/brj/CBIOMES_ecoregions/ver_0_2_5/tabulated_geospatial_montly_clim_045_090_ver_0_2_5.csv';
 
 %% Load table from the web into oceanData 
-oceanData = webread(oceanURlFile);
+oceanData = webread(oceanURlFile2);
+
+%% Remove all rows with missing data
+oceanData = oceanData(~any(ismissing(oceanData),2),:);
 
 %% Show all table properties (column names)
 oceanData.Properties.VariableNames
