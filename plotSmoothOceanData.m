@@ -1,7 +1,14 @@
 %% Test script to produce smooth ocean data for every month
+% Extremely slow - only intended for experimenting with landmasks
 
+%% Loading file from Bror's GitHub repository (Monthly climatology, four degree resolution) 
+%% Note this file is slightly deprecated 
+oceanURlFile = 'https://rsg.pml.ac.uk/shared_files/brj/CBIOMES_ecoregions/ver_0_2/tabulated_geospatial_montly_clim_045_090_ver_0_2.csv';
 
-%% Show Chlorophyll data per month in a world bubble chart
+%% Load table from the web into oceanData 
+oceanData = webread(oceanURlFile);
+
+%% Show Chlorophyll data per month in a smooothed ocean map
 nMonths = 1;
 
 for i = 1:nMonths
@@ -34,7 +41,7 @@ for i = 1:nMonths
     
     load coastlines    
     plotm(coastlat,coastlon)
-    geoshow(X,Y,Z,'DisplayType', 'texturemap') %
+    geoshow(X,Y,-Z,'DisplayType', 'texturemap') %
     title(['Chlorophyll month ',num2str(i)]);
     drawnow;
     
