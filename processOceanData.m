@@ -11,7 +11,7 @@
 oceanURlFile = 'https://rsg.pml.ac.uk/shared_files/brj/CBIOMES_ecoregions/ver_0_2_5/tabulated_geospatial_montly_clim_045_090_ver_0_2_5.csv';
 
 %% Load table from the web into oceanData 
-oceanData = webread(oceanURlFile2);
+oceanData = webread(oceanURlFile);
 
 %% Remove all rows with missing data
 oceanData = oceanData(~any(ismissing(oceanData),2),:);
